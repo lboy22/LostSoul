@@ -18,24 +18,25 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         // SceneManager.LoadScene(GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene("Story_One");
+        SceneManager.LoadScene("First_Story");
     }
 
-    private void Options()
+    public void Options()
     {
 
     }
 
-    private void Credits()
+    public void Credits()
     {
         SceneManager.LoadScene("Credits");
     }
 
-    private void ExitGame()
+    public void ExitGame()
     {
-        Application.Quit();
+        //Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
