@@ -64,4 +64,6 @@ public class PlayerActions : MonoBehaviour
     {
         playerBody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
     }
+
+    
 }
