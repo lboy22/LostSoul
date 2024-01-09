@@ -44,6 +44,11 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("P was pressed, or Resume was clicked: " + pause);
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void MainMenuReturn()
     {
         SceneManager.LoadScene(MainMenu);
