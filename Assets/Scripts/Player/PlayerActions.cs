@@ -44,16 +44,16 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        if(Input.GetKeyDown("w")) {
+        if(Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) {
             yValue = 1;
         }
-        else if(Input.GetKeyDown("s")) {
+        else if(Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) {
             yValue = -1;
         }
-        if(Input.GetKeyUp("w")) {
+        if(Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow)) {
             yValue = 0;
         }
-        if(Input.GetKeyUp("s")) {
+        if(Input.GetKeyUp("s") || Input.GetKeyUp(KeyCode.DownArrow)) {
             yValue = 0;
         }
         
@@ -76,7 +76,6 @@ public class PlayerActions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if(playerObject.transform.position.x > PlayerPrefs.GetInt("bridgeLeft") && playerObject.transform.position.x < PlayerPrefs.GetInt("bridgeRight") && playerObject.transform.position.y >= PlayerPrefs.GetInt("bridgeBottom") && playerObject.transform.position.y <= PlayerPrefs.GetInt("bridgeTop")) {
             playerBody.velocity = new Vector2(moveDirection.x * moveSpeed, yValue * moveSpeed);
         }
