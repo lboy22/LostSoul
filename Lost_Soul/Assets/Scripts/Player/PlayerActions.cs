@@ -11,6 +11,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] int moveSpeed = 5;
     [SerializeField] Rigidbody2D playerBody;
     [SerializeField] PlayerControls playerControls;
+    public GameObject playerObject;
+    int yValue;
 
     private InputAction move;
     Vector2 moveDirection = Vector2.zero;
@@ -42,27 +44,44 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        
-        if (playerControls.Player.Jump.triggered) 
-        {
-            OnJump();
+        if(Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)) {
+            yValue = 1;
+        }
+        else if(Input.GetKeyDown("s") || Input.GetKeyDown(KeyCode.DownArrow)) {
+            yValue = -1;
+        }
+        if(Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow)) {
+            yValue = 0;
+        }
+        if(Input.GetKeyUp("s") || Input.GetKeyUp(KeyCode.DownArrow)) {
+            yValue = 0;
         }
         
+        //if (playerControls.Player.Jump.triggered) 
+        //{
+        //    OnJump();
+       // }
+        
     }
 
-    private void OnJump()
-    {
-        Vector2 currentVelocity = playerBody.velocity;
-        currentVelocity.y = jumpForce;
-        playerBody.velocity = currentVelocity;
+    //private void OnJump()
+    //{
+     //   Vector2 currentVelocity = playerBody.velocity;
+       // currentVelocity.y = jumpForce;
+    //    playerBody.velocity = currentVelocity;
 
-        Debug.Log("Jumping: " + jumpForce + " Velocity: " + playerBody.velocity);
-    }
+      //  Debug.Log("Jumping: " + jumpForce + " Velocity: " + playerBody.velocity);
+   // }
 
 
     private void FixedUpdate()
     {
-        playerBody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+        if(playerObject.transform.position.x > PlayerPrefs.GetInt("bridgeLeft") && playerObject.transform.position.x < PlayerPrefs.GetInt("bridgeRight") && playerObject.transform.position.y >= PlayerPrefs.GetInt("bridgeBottom") && playerObject.transform.position.y <= PlayerPrefs.GetInt("bridgeTop")) {
+            playerBody.velocity = new Vector2(moveDirection.x * moveSpeed, yValue * moveSpeed);
+        }
+        else {
+            playerBody.velocity = new Vector2(moveDirection.x * moveSpeed, 0);
+        }
     }
 
     
